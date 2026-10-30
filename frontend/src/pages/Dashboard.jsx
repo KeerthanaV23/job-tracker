@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Bar, BarChart, CartesianGrid, Cell, Pie, PieChart, ResponsiveContainer, Tooltip, XAxis, YAxis } from "recharts";
+import { Bar, BarChart, CartesianGrid, Cell, Legend, Pie, PieChart, ResponsiveContainer, Tooltip, XAxis, YAxis } from "recharts";
 import api from "../api/client";
 
 const COLORS = { wishlist: "#94a3b8", applied: "#3b82f6", interview: "#f59e0b", offer: "#10b981", rejected: "#f43f5e" };
@@ -51,6 +51,7 @@ export default function Dashboard() {
                   {pie.map((p) => <Cell key={p.name} fill={COLORS[p.name]} />)}
                 </Pie>
                 <Tooltip />
+                <Legend />
               </PieChart>
             </ResponsiveContainer>
           </div>

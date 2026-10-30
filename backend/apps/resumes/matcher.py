@@ -7,11 +7,23 @@ different kinds of documents is naturally low.
 """
 import re
 
-from sklearn.feature_extraction.text import TfidfVectorizer
+from sklearn.feature_extraction.text import ENGLISH_STOP_WORDS, TfidfVectorizer
 from sklearn.metrics.pairwise import cosine_similarity
 
 TOP_N_KEYWORDS = 20
-_TOKEN_RE = re.compile(r"[a-zA-Z][a-zA-Z0-9+#.]*")
+# keeps node.js, c++, c# intact but never ends a token with a trailing dot ("basics." -> "basics")
+_TOKEN_PATTERN = r"[a-z][a-z0-9+#]*(?:\.[a-z0-9+#]+)*"
+_TOKEN_RE = re.compile(_TOKEN_PATTERN, re.IGNORECASE)
+
+# generic JD words that say nothing about skills
+_EXTRA_STOP_WORDS = {
+    "good", "great", "strong", "excellent", "skills", "skill", "basics", "basic",
+    "attitude", "knowledge", "experience", "familiarity", "ability", "preferred",
+    "required", "plus", "advantage", "looking", "need", "needed", "hiring", "work",
+    "working", "team", "years", "year", "learning", "communication", "understanding",
+    "responsibilities", "requirements", "candidate", "role", "job", "company", "etc",
+}
+STOP_WORDS = sorted(set(ENGLISH_STOP_WORDS) | _EXTRA_STOP_WORDS)
 
 
 def clean_text(text: str) -> str:
@@ -28,7 +40,7 @@ def analyze(resume_text: str, job_description: str) -> dict:
     if not resume or not jd:
         raise ValueError("Both resume text and job description are required.")
 
-    vectorizer = TfidfVectorizer(stop_words="english", ngram_range=(1, 2), token_pattern=r"[a-z][a-z0-9+#.]*")
+    vectorizer = TfidfVectorizer(stop_words=STOP_WORDS, ngram_range=(1, 2), token_pattern=_TOKEN_PATTERN)
     try:
         matrix = vectorizer.fit_transform([resume, jd])
     except ValueError:  # only stop-words

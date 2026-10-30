@@ -57,3 +57,12 @@ def test_analyze_rejects_non_pdf(client):
 def test_analyze_requires_resume(client):
     r = client.post("/api/resumes/analyze/", {"job_description": JD}, format="json")
     assert r.status_code == 400
+
+
+def test_keywords_have_no_trailing_punctuation_or_filler_words():
+    jd = "Associate Developer with Python or Java, SQL and Git basics. Good learning attitude and communication skills."
+    res = matcher.analyze("Python developer with SQL and Git.", jd)
+    words = res["missing_keywords"] + res["matched_keywords"]
+    assert all(not w.endswith(".") for w in words)
+    assert not {"good", "skills", "basics"} & set(words)
+    assert "java" in res["missing_keywords"]
