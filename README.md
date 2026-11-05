@@ -1,6 +1,18 @@
 # JobTracker - AI-Powered Job Application Tracker + Resume Analyzer
    ![CI](https://github.com/KeerthanaV23/job-tracker/actions/workflows/ci.yml/badge.svg)
+**Live demo:** https://jobtracker-web-1r4a.onrender.com
+*(Free hosting: first load may take about a minute while the server wakes up.)*
 
+## Screenshots
+
+### Kanban board
+![Kanban board](screenshots/kanban.png)
+
+### Dashboard
+![Dashboard](screenshots/dashboard.png)
+
+### Resume analyzer
+![Resume analyzer](screenshots/analyzer.png)
 Full-stack app to track job applications on a Kanban board, see funnel analytics,
 and score your resume against any job description (TF-IDF + cosine similarity).
 
