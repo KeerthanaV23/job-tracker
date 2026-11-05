@@ -13,6 +13,7 @@
 
 ### Resume analyzer
 ![Resume analyzer](screenshots/analyzer.png)
+
 Full-stack app to track job applications on a Kanban board, see funnel analytics,
 and score your resume against any job description (TF-IDF + cosine similarity).
 
@@ -96,9 +97,7 @@ See `backend/apps/resumes/matcher.py`.
   set env vars from `.env.example`; frontend as Static Site (`npm run build`, publish `dist`, set `VITE_API_URL` to the backend URL + `/api`).
 - Set `CORS_ALLOWED_ORIGINS` to your frontend URL.
 
-## Resume bullet (edit the numbers to your real ones)
-> Built a full-stack job tracker using Django REST, React, PostgreSQL and Celery; implemented TF-IDF resume-to-JD matching
-> with missing-keyword detection; added status-history funnel analytics, JWT auth, Dockerized deployment and GitHub Actions CI with pytest.
+
 
 ## Ideas to extend
 Gmail/Outlook calendar sync - LinkedIn job-URL scraping - sentence-transformer embeddings for smarter matching - team/mentor sharing.
