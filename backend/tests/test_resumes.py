@@ -66,3 +66,11 @@ def test_keywords_have_no_trailing_punctuation_or_filler_words():
     assert all(not w.endswith(".") for w in words)
     assert not {"good", "skills", "basics"} & set(words)
     assert "java" in res["missing_keywords"]
+
+
+def test_filler_adjectives_are_not_keywords():
+    jd = "Backend Developer skilled in Python, Django, PostgreSQL and Docker. Proficient in Git."
+    res = matcher.analyze("Python and Django developer.", jd)
+    words = set(res["missing_keywords"] + res["matched_keywords"])
+    assert not {"skilled", "proficient"} & words
+    assert "docker" in res["missing_keywords"]

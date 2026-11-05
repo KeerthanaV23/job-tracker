@@ -22,6 +22,8 @@ _EXTRA_STOP_WORDS = {
     "required", "plus", "advantage", "looking", "need", "needed", "hiring", "work",
     "working", "team", "years", "year", "learning", "communication", "understanding",
     "responsibilities", "requirements", "candidate", "role", "job", "company", "etc",
+    "skilled", "proficient", "proficiency", "expertise", "exposure", "solid", "relevant",
+    "minimum", "equivalent", "ideal", "bonus", "nice", "hands", "handson", "hire",
 }
 STOP_WORDS = sorted(set(ENGLISH_STOP_WORDS) | _EXTRA_STOP_WORDS)
 
