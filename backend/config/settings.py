@@ -58,8 +58,12 @@ TEMPLATES = [
     }
 ]
 
-# PostgreSQL when POSTGRES_DB is set (docker-compose / production), SQLite otherwise.
-if env("POSTGRES_DB"):
+# DATABASE_URL (Render/Neon/etc.) > POSTGRES_* vars (docker-compose) > SQLite (local dev)
+if env("DATABASE_URL"):
+    import dj_database_url
+
+    DATABASES = {"default": dj_database_url.parse(env("DATABASE_URL"), conn_max_age=600)}
+elif env("POSTGRES_DB"):
     DATABASES = {
         "default": {
             "ENGINE": "django.db.backends.postgresql",
@@ -96,6 +100,7 @@ MEDIA_ROOT = BASE_DIR / "media"
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 CORS_ALLOWED_ORIGINS = env("CORS_ALLOWED_ORIGINS", "http://localhost:5173").split(",")
+CSRF_TRUSTED_ORIGINS = [o for o in env("CSRF_TRUSTED_ORIGINS", "").split(",") if o]
 
 REST_FRAMEWORK = {
     "DEFAULT_AUTHENTICATION_CLASSES": (
